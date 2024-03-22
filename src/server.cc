@@ -89,7 +89,6 @@ int main()
             // Write each line to shared memory, ensure not to exceed shm_size
             if ((shm_ptr - static_cast<char *>(shared_memory)) + line.length() + 1 < shm_size)
             {
-                // cout<<line<<endl;
                 strncpy(shm_ptr, line.c_str(), line.length());
                 shm_ptr += line.length();
                 *shm_ptr = '\n'; // Add newline character
