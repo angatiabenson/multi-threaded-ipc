@@ -112,14 +112,12 @@ int main(int argc, char *argv[])
 
 void *thread_function(void *arg)
 {
-    // cout<<"START THREAD FUNCTION"<<endl;
     ThreadData *data = (ThreadData *)arg;
     std::istringstream stream(data->shared_mem_ptr);
     std::string line;
     double total_sum = 0;
     int line_count = 0;
 
-    // cout<<"SKIPPING START LINE"<<endl;
     //  Skip to the start line
     for (int i = 0; i < data->start_line && std::getline(stream, line); ++i)
     {
@@ -128,10 +126,7 @@ void *thread_function(void *arg)
     // Process each line within the thread's range
     while (std::getline(stream, line) && line_count < data->end_line - data->start_line + 1)
     {
-        // Here, implement the logic to calculate the sum of each equation line
-        // This is a placeholder for the actual calculation logic
         double line_sum = calculator::calculate_from_string(line);
-        // cout<<"THREAD "<< data->thread_id<<": "<<line<<" = "<<line_sum<<endl;
         total_sum += line_sum;
         line_count++;
     }
@@ -141,6 +136,5 @@ void *thread_function(void *arg)
     // Output the thread's results
     std::cout << "\tTHREAD " << data->thread_id << ": " << line_count << " LINES, " << total_sum << std::endl;
 
-    // Ideally, return the sum or use a mechanism to aggregate sums from all threads
-    return nullptr; // Modify as necessary for your design
+    return nullptr;
 }
